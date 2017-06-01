@@ -34,7 +34,7 @@ app.get('/api/items', (req, res) => {
     console.log(result);
     //const url = {url: createURL(req.protocol, req.hostname, result[0].id)};
     //const array = [url];
- 
+
     //console.log(returnObj);
     res.json(result);
   });
@@ -63,9 +63,9 @@ app.post('/api/items',json, (req, res) => {
       const host = req.get('host');
       const url = createURL(protocol, host, response[0].id);
       const returnObj = {
-        url: url, 
-        id: response[0].id, 
-        title:response[0].title, 
+        url: url,
+        id: response[0].id,
+        title:response[0].title,
         completed:response[0].completed };
       res.status(201).location(url)
       .json(returnObj);
@@ -74,7 +74,7 @@ app.post('/api/items',json, (req, res) => {
 });
 
 app.put('/api/items/:id', json, (req, res) => {
-  if(!(req.body.title || req.body.completed)){
+  if(req.body !== {}){
     //console.log('Are we here?');
     console.log('Hey');
     res.status(400).send();
@@ -86,7 +86,7 @@ app.put('/api/items/:id', json, (req, res) => {
       .where('id', req.params.id)
       .returning('completed')
       .then(result => res.json({completed:result[0]}));
-      
+
     }
     else{
       knex('items')
