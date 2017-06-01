@@ -363,7 +363,7 @@ describe('TodoMVC API:', () => {
       /**
        * This test requires you to wireup the database to the PUT endpoint so the completed status can be changed
        */
-      it.only('should PUT a change to the `completed` field of an item', function () {
+      it('should PUT a change to the `completed` field of an item', function () {
         const newItem = { title: 'Buy soy milk' };
         const putItem = { completed: true };
         let itemId;
@@ -394,7 +394,7 @@ describe('TodoMVC API:', () => {
       /**
        * This test requires you to wire-up the delete endpoint so items can be deleted.
        */
-      it('should DELETE an item', function () {
+      it.only('should DELETE an item', function () {
         const newItem = { title: 'Buy soy milk' };
         let itemId;
         return knex('items')
