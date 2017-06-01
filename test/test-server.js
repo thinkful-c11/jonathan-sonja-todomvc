@@ -228,7 +228,7 @@ describe('TodoMVC API:', () => {
       /**
        * This test requires you to add a URL to the response which has the location of the new item.
        */
-      it.only('should respond with a URL which can be used to retrieve the new item', function () {
+      it('should respond with a URL which can be used to retrieve the new item!', function () {
         const newItem = { title: 'Buy milk' };
         return chai.request(app)
           .post('/api/items')
@@ -313,7 +313,8 @@ describe('TodoMVC API:', () => {
             return chai.request(app).get('/api/items');
           })
           .then(function (result) {
-            const url = result.body[0].url;
+            console.log(result.body);
+            const url = result.body.url;
             const split = url.lastIndexOf('/');
             const root = url.slice(0, split);
             const path = url.substr(split);

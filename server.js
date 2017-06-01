@@ -16,19 +16,34 @@ app.use(function(req, res, next) {
   next();
 });
 
+function createURL(protocol, host, id){
+  return `${protocol}://${host}:8080/api/items/${id}`;
+}
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
 app.get('/api/items', (req, res) => {
   knex('items')
-  .then(result => res.json(result));
-  // res.json( [] );
+  .then(result => {
+    //console.log(result);
+    const returnObj = {
+      url: createURL(req.protocol, req.hostname, result[0].id),
+      id: result[0].id, 
+      title:result[0].title, 
+      completed:result[0].completed };
+    //console.log(returnObj);
+    res.json(returnObj);
+  });
+
 });
 app.get('/api/items/:id', (req, res) => {
   knex('items')
   .where('id', req.params.id)
-  .then(result => res.json(result[0]));
+  .then(result => {
+    res.json(result[0]);
+  });
   // res.json( [] );
 });
 
@@ -39,14 +54,23 @@ app.post('/api/items',json, (req, res) => {
   }else {
     knex('items')
     .insert({title: req.body.title})
-    .returning(['id','title'])
+    .returning(['id','title', 'completed'])
     .then(response => {
-      res.status(201)
-      .location(`/api/items/${response}`)
-      .json(response[0]);
+      const protocol = req.protocol;
+      const host = req.hostname;
+      const url = createURL(protocol, host, response[0].id);
+      const returnObj = {
+        url: url, 
+        id: response[0].id, 
+        title:response[0].title, 
+        completed:response[0].completed };
+      res.status(200)
+      .location(url).
+      json(returnObj);
     });
   }
 });
+
 
 let server;
 // let knex;
