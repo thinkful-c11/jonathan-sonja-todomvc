@@ -98,6 +98,13 @@ app.put('/api/items/:id', json, (req, res) => {
   }
 });
 
+app.delete('/api/items/:id', json, (req, res) => {
+  knex('items')
+  .where('id', req.params.id)
+  .del()
+  .then(result => res.json(result));
+});
+
 let server;
 // let knex;
 function runServer(database = DATABASE, port = PORT) {
