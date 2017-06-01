@@ -27,15 +27,9 @@ app.get('/', (req, res) => {
 app.get('/api/items', (req, res) => {
   knex('items')
   .then(result => {
-    //console.log(result);
     result.forEach(element => {
       element.url = createURL(req.protocol, req.get('host'), element.id);
     });
-    console.log(result);
-    //const url = {url: createURL(req.protocol, req.hostname, result[0].id)};
-    //const array = [url];
-
-    //console.log(returnObj);
     res.json(result);
   });
 
@@ -51,8 +45,6 @@ app.get('/api/items/:id', (req, res) => {
 
 app.post('/api/items',json, (req, res) => {
   if(!req.body.title){
-    //console.log('Are we here?');
-    console.log('Hey');
     res.status(400).send();
   }else {
     knex('items')
@@ -74,27 +66,20 @@ app.post('/api/items',json, (req, res) => {
 });
 
 app.put('/api/items/:id', json, (req, res) => {
-  if(req.body !== {}){
-    //console.log('Are we here?');
-    console.log('Hey');
+  if(!(req.body.title || req.body.completed)){
     res.status(400).send();
   }
   else{
-    if(req.body.completed){
-      knex('items')
-      .update('completed', req.body.completed)
+    const value = Object.keys(req.body)[0];
+    knex('items')
+      .update(req.body)
       .where('id', req.params.id)
-      .returning('completed')
-      .then(result => res.json({completed:result[0]}));
-
-    }
-    else{
-      knex('items')
-      .update('title', req.body.title)
-      .where('id', req.params.id)
-      .returning('title')
-      .then(result => res.json({title:result[0]}));
-    }
+      .returning(value)
+      .then(result => {
+        const obj = {};
+        obj[value] = result[0];
+        res.json(obj);
+      });
   }
 });
 

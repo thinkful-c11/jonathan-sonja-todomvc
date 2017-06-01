@@ -142,7 +142,7 @@ describe('TodoMVC API:', () => {
       /**
        * This requires you to wire-up the GET /api/items endpoint to knex and postgres
        */
-      it.skip('should respond with the items in the database', function () {
+      it('should respond with the items in the database', function () {
         const newItem = { title: 'Buy soy milk' };
         let itemId;
         return knex('items')
@@ -165,7 +165,7 @@ describe('TodoMVC API:', () => {
       /**
        * This requires you to create a GET /api/items/:id endpoint and wire it up to knex and postgres
        */
-      it.skip('should respond with the item corresponding to the item `id` in the route', function () {
+      it('should respond with the item corresponding to the item `id` in the route', function () {
         const newItem = { title: 'Buy soy milk' };
         let itemId;
         return knex('items')
@@ -313,7 +313,6 @@ describe('TodoMVC API:', () => {
             return chai.request(app).get('/api/items');
           })
           .then(function (result) {
-            console.log(result.body);
             const url = result.body[0].url;
             const split = url.lastIndexOf('/');
             const root = url.slice(0, split);
@@ -394,7 +393,7 @@ describe('TodoMVC API:', () => {
       /**
        * This test requires you to wire-up the delete endpoint so items can be deleted.
        */
-      it.only('should DELETE an item', function () {
+      it('should DELETE an item', function () {
         const newItem = { title: 'Buy soy milk' };
         let itemId;
         return knex('items')
