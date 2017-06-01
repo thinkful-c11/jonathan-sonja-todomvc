@@ -17,7 +17,7 @@ app.use(function(req, res, next) {
 });
 
 function createURL(protocol, host, id){
-  return `${protocol}://${host}:8080/api/items/${id}`;
+  return `${protocol}://${host}/api/items/${id}`;
 }
 
 app.get('/', (req, res) => {
@@ -28,13 +28,15 @@ app.get('/api/items', (req, res) => {
   knex('items')
   .then(result => {
     //console.log(result);
-    const returnObj = {
-      url: createURL(req.protocol, req.hostname, result[0].id),
-      id: result[0].id, 
-      title:result[0].title, 
-      completed:result[0].completed };
+    result.forEach(element => {
+      element.url = createURL(req.protocol, req.get('host'), element.id);
+    });
+    console.log(result);
+    //const url = {url: createURL(req.protocol, req.hostname, result[0].id)};
+    //const array = [url];
+ 
     //console.log(returnObj);
-    res.json(returnObj);
+    res.json(result);
   });
 
 });
@@ -49,7 +51,8 @@ app.get('/api/items/:id', (req, res) => {
 
 app.post('/api/items',json, (req, res) => {
   if(!req.body.title){
-    console.log('Are we here?');
+    //console.log('Are we here?');
+    console.log('Hey');
     res.status(400).send();
   }else {
     knex('items')
@@ -57,20 +60,43 @@ app.post('/api/items',json, (req, res) => {
     .returning(['id','title', 'completed'])
     .then(response => {
       const protocol = req.protocol;
-      const host = req.hostname;
+      const host = req.get('host');
       const url = createURL(protocol, host, response[0].id);
       const returnObj = {
         url: url, 
         id: response[0].id, 
         title:response[0].title, 
         completed:response[0].completed };
-      res.status(200)
-      .location(url).
-      json(returnObj);
+      res.status(201).location(url)
+      .json(returnObj);
     });
   }
 });
 
+app.put('/api/items/:id', json, (req, res) => {
+  if(!(req.body.title || req.body.completed)){
+    //console.log('Are we here?');
+    console.log('Hey');
+    res.status(400).send();
+  }
+  else{
+    if(req.body.completed){
+      knex('items')
+      .update('completed', req.body.completed)
+      .where('id', req.params.id)
+      .returning('completed')
+      .then(result => res.json({completed:result[0]}));
+      
+    }
+    else{
+      knex('items')
+      .update('title', req.body.title)
+      .where('id', req.params.id)
+      .returning('title')
+      .then(result => res.json({title:result[0]}));
+    }
+  }
+});
 
 let server;
 // let knex;
