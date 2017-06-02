@@ -9,6 +9,8 @@ const knex = require('knex')(DATABASE);
 
 const json = bodyParser.json();
 
+
+//A function to create the URL for an item in the database.
 function createURL(protocol, host, id){
   return `${protocol}://${host}/api/items/${id}`;
 }
