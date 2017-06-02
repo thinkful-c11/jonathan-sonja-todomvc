@@ -19,7 +19,7 @@ describe('TodoMVC API:', () => {
       .then(closeServer);
   });
 
-  /** SKELETON ENDPOINTS
+  /** SKELETON ENDPOINTS 
    *  ==================
    * - Create skeleton endpoints for GET and POST
    *
