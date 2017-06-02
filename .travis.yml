@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: Fro910MT0tfAmst05BR7U6JRqooQ0knZLSggoH0pEVAwyNgZCb6Pc2mOrsqPXbK1UDsumQyHx3sS2ResRusM7+zGYLiWdNHeM6BYmZ1zUCbI8I5bCSMVqpCJXibgm3kz5wfEmqlMKxIKnHxFPXA1tXb8q1rJ198qvVedKhM/G6ufqxKbnCJnXmpltqW+XunGv2Zj2pgXbCnmoJmlQheMhUuuyIsuSuvhWrUfjzYQOLkiJdcjEk7PkcaVuRN5ihByA/WiWfKhp0zYTjTz6WeR9AyNbp61nqeJCmoN1GOj+ZDGWqjBXh0RLjWw8dLv9DVZdXEKZWgwu+ijy2GBOlmOgYf79166UlG10YLTX+ufZwMP11BKWj/uJUG93zh7bFk4wcxqpjZXypaaCnGQ4zdKGQLziH8Lk8ifY0XZJ2Dv1Jbo4m554MPo6ZEaFHcF0CTCUMk/8SIhYTlOS3nAgApFy+dJb7/wupSd/cG4Ih27uCxRexsrgUYGU2uIenzxqLPRWJNUTePQh+Odm5/z6+dVMAveAz7yuV4xPDXY65aCRo45z4ZVlijg4c1y/UDVrj9AmLBvkLeU2E2uJl+KjwF0UoU9YoJYA44XLXKev90Avne1+VEQSr748uN/6/ex2f9vurIH/oSrLmQVP5AdcHBAepeKAMoTD/bqyqcujSS4jNM=
-  app: http://evening-gorge-34228.heroku.com/
+  app: evening-gorge-34228
   on:
     repo: thinkful-c11/jonathan-sonja-todomvc
