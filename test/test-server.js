@@ -33,7 +33,7 @@ describe('TodoMVC API:', () => {
      *
      * Inspect the test for clues to the route, status and correct response
      */
-    it.skip('should respond to GET with status 200 and an array', function () {
+    it('should respond to GET with status 200 and an array', function () {
       return chai.request(app)
         .get('/api/items')
         .then(function (result) {
@@ -54,7 +54,7 @@ describe('TodoMVC API:', () => {
      *  - https://enable-cors.org/server_expressjs.html
      *  The hint is not the *complete* solution, you will need to expand on it
      */
-    it.skip('should respond with CORS headers', function () {
+    it('should respond with CORS headers', function () {
       return chai.request(app)
         .get('/api/items')
         .then(function (result) {
@@ -75,7 +75,7 @@ describe('TodoMVC API:', () => {
      *
      * HINT: https://expressjs.com/en/4x/api.html#res.location
      */
-    it.skip('should respond to POST with an object a status 201 and a location header', function () {
+    it('should respond to POST with an object a status 201 and a location header', function () {
       return chai.request(app)
         .post('/api/items')
         .send({title: 'rice'})
@@ -96,7 +96,7 @@ describe('TodoMVC API:', () => {
      * HINT: "Use the body-parser, Luke!"
      * https://expressjs.com/en/4x/api.html#req.body
      */
-    it.skip('should respond to POST with the title of item that was POSTed', function () {
+    it('should respond to POST with the title of item that was POSTed', function () {
       const newItem = { title: 'Walk the dog' };
       return chai.request(app)
         .post('/api/items')
@@ -128,6 +128,15 @@ describe('TodoMVC API:', () => {
 
   // NOTE: This describe block wraps sub-blocks and tests
   describe('With database:', function () {
+
+    // beforeEach test, delete the test items in the table
+    beforeEach(() => {
+      return knex('items')
+        .del()
+        .catch((err) => {
+          console.error('ERROR', err.message);
+        });
+    });
 
     // afterEach test, delete the test items in the table
     afterEach(() => {
