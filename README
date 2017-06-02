@@ -1,0 +1,7 @@
+
+This application provides API endpoints for a front-end application 
+to access item data for a To Do list. These API endpoints provide support
+for CRUD operations (Create, Read, Update, & Delete) as specified in the
+test/test-server.js unit tests. The server.js file is the main entry point 
+to the API with middleware support for CORS issues. This file calls to 
+the router.js file for the specific API endpoints. 
