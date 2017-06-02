@@ -1,6 +1,9 @@
 'use strict';
 
-require('dotenv').config();
+if(process.env.NODE_ENV != 'production') {
+  require('dotenv').config();
+}
+
 const DATABASE_URL = process.env.DATABASE_URL || global.DATABASE_URL;
 
 exports.DATABASE = {
